@@ -12,10 +12,27 @@
     <artifactId>rpc-core</artifactId>
 
     <dependencies>
+        <!-- rpc-practice -->
         <dependency>
             <groupId>github.beeclimb</groupId>
             <artifactId>rpc-common</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <!-- zookeeper and curator -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>${curator-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>${curator-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${kryo.version}</version>
         </dependency>
     </dependencies>
 

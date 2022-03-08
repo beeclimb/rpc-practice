@@ -14,7 +14,7 @@
         <module>rpc-common</module>
     </modules>
 
-    <properties>
+  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
@@ -22,7 +22,14 @@
     <!-- test -->
     <junit.jupiter.version>5.5.2</junit.jupiter.version>
     <junit.platform.vsersion>1.5.2</junit.platform.vsersion>
-
+    <!-- curator -->
+    <curator-version>4.2.0</curator-version>
+    <!-- logging -->
+    <slf4j.version>1.7.25</slf4j.version>
+    <!-- serialize -->
+    <kryo.version>4.0.2</kryo.version>
+    <!-- lombok -->
+    <lombok.version>1.18.8</lombok.version>
   </properties>
 
   <dependencies>
@@ -38,6 +45,23 @@
       <artifactId>junit-platform-runner</artifactId>
       <version>${junit.platform.vsersion}</version>
       <scope>test</scope>
+    </dependency>
+    <!-- log -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <!-- lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
     </dependency>
   </dependencies>
 
