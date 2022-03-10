@@ -30,6 +30,8 @@
     <kryo.version>4.0.2</kryo.version>
     <!-- lombok -->
     <lombok.version>1.18.8</lombok.version>
+    <!-- guava -->
+    <guava.version>30.1.1-jre</guava.version>
   </properties>
 
   <dependencies>
@@ -62,6 +64,12 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
+    </dependency>
+    <!-- guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
 
