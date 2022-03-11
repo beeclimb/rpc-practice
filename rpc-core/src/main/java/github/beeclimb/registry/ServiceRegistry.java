@@ -1,4 +1,4 @@
-package github.beeclimb.registry.zk;
+package github.beeclimb.registry;
 
 import java.net.InetSocketAddress;
 

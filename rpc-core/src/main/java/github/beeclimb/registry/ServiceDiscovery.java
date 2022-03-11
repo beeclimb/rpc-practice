@@ -1,4 +1,6 @@
-package github.beeclimb.registry.zk;
+package github.beeclimb.registry;
+
+import github.beeclimb.remoting.dto.RpcRequest;
 
 import java.net.InetSocketAddress;
 
@@ -12,8 +14,9 @@ public interface ServiceDiscovery {
     /**
      * lookup service by rpcServiceName
      *
+     * @param rpcRequest rpc service pojo
      * @return service address
      */
-    InetSocketAddress lookupService();
+    InetSocketAddress lookupService(RpcRequest rpcRequest);
 
 }

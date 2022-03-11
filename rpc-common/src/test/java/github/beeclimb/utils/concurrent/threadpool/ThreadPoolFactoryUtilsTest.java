@@ -1,10 +1,9 @@
 package github.beeclimb.utils.concurrent.threadpool;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Date;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ThreadPoolFactoryUtilsTest {
@@ -69,5 +68,21 @@ final class MyRunnable implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+}
+
+class ThreadPoolTest {
+    public static void main(String[] args) {
+        ExecutorService executorService = ThreadPoolFactoryUtils.createCustomThreadPoolIfAbsent("Update");
+        for (int i = 0; i < 10; ++i) {
+            Runnable worker = new MyRunnable("" + i);
+            executorService.execute(worker);
+        }
+        ThreadPoolFactoryUtils.printThreadPoolStatus((ThreadPoolExecutor) executorService);
+    }
+
+    @Test
+    public void shutdownTest() {
+        ThreadPoolFactoryUtils.shutDownAllThreadPool();
     }
 }
