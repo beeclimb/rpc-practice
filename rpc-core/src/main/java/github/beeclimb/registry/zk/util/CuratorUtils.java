@@ -35,7 +35,7 @@ public class CuratorUtils {
     private static final int MAX_RETRIES = 3;
     private static final Set<String> REGISTERED_PATH_SET = ConcurrentHashMap.newKeySet();
     private static final Map<String, List<String>> SERVICE_ADDRESS_MAP = new ConcurrentHashMap<>();
-    private static final String ZK_REGISTER_ROOT_PATH = "/rpc";
+    public static final String ZK_REGISTER_ROOT_PATH = "/rpc";
 
     private CuratorUtils() {
     }
@@ -43,7 +43,7 @@ public class CuratorUtils {
     /**
      * Create persistent nodes. Unlike temporary nodes, persistent nodes are not removed when the client disconnects
      *
-     * @param path node path
+     * @param path node path e.g.: /rpc/github.beeclimb.SeyHelloService/10.150.110.66:22
      */
     public static void createPersistentNode(CuratorFramework zkClient, String path) {
         try {
@@ -63,7 +63,7 @@ public class CuratorUtils {
      * Gets the children under a node
      *
      * @param rpcServiceName rpc service name.
-     * @return All child nodes under the specified node
+     * @return All child nodes under the specified node. e.g.: [10.150.110.66:3000, 10.150.110.77:3000, 10.150.110.88:3000]
      */
     public static List<String> getChildrenNodes(CuratorFramework zkClient, String rpcServiceName) {
         List<String> result = null;
