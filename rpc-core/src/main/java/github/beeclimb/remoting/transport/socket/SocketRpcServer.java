@@ -1,41 +1,52 @@
 package github.beeclimb.remoting.transport.socket;
 
-import github.beeclimb.remoting.dto.RpcRequest;
+import github.beeclimb.config.CustomShutdownHook;
+import github.beeclimb.config.RpcServiceConfig;
+import github.beeclimb.factory.SingletonFactory;
+import github.beeclimb.provider.ServiceProvider;
+import github.beeclimb.provider.impl.ZkServiceProviderImpl;
+import github.beeclimb.remoting.transport.netty.server.NettyRpcServer;
+import github.beeclimb.utils.concurrent.threadpool.ThreadPoolFactoryUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author jun
  * @date 2022/3/8 20:50:00
  */
+@Slf4j
 public class SocketRpcServer {
-    private static final int PORT = 6666;
+    private final ServiceProvider serviceProvider;
+    private final ExecutorService threadPool;
+
+    public SocketRpcServer() {
+        serviceProvider = SingletonFactory.getInstance(ZkServiceProviderImpl.class);
+        threadPool = ThreadPoolFactoryUtils.createCustomThreadPoolIfAbsent("socket-server-rpc-pool");
+    }
+
+    public void registerService(RpcServiceConfig rpcServiceConfig) {
+        serviceProvider.publishService(rpcServiceConfig);
+    }
 
     public void start() {
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+        try (ServerSocket server = new ServerSocket()) {
+            String host = InetAddress.getLocalHost().getHostAddress();
+            server.bind(new InetSocketAddress(host, NettyRpcServer.PORT));
+            CustomShutdownHook.getCustomShutdownHook().clearAll();
             Socket socket;
-            while ((socket = serverSocket.accept()) != null) {
-                try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())) {
-                    RpcRequest rpcRequest = (RpcRequest) objectInputStream.readObject();
-                    System.out.println(rpcRequest.getRequestId());
-                    rpcRequest.setRequestId("9527");
-                    objectOutputStream.writeObject(rpcRequest);
-                    objectOutputStream.flush();
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+            while ((socket = server.accept()) != null) {
+                log.info("client connected: [{}]", socket.getInetAddress());
+                threadPool.execute(new SocketRpcRequestHandlerRunnable(socket));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            threadPool.shutdown();
+        } catch (IOException e) {
+            log.error("occur IOException: [{}]", e.getMessage());
         }
-    }
-    
-    public static void main(String[] args) {
-        new SocketRpcServer().start();
     }
 }

@@ -1,5 +1,7 @@
 package github.beeclimb.registry;
 
+import github.beeclimb.extension.SPI;
+
 import java.net.InetSocketAddress;
 
 /**
@@ -8,6 +10,7 @@ import java.net.InetSocketAddress;
  * @author jun
  * @date 2022/3/7 21:30:00
  */
+@SPI
 public interface ServiceRegistry {
     /**
      * register service

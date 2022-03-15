@@ -12,7 +12,7 @@ import java.net.InetSocketAddress;
  * @author jun
  * @date 2022/3/11 17:47:00
  */
-public class ZkServiceRegistry implements ServiceRegistry {
+public class ZkServiceRegistryImpl implements ServiceRegistry {
 
     @Override
     public void registerService(String rpcServiceName, InetSocketAddress inetSocketAddress) {

@@ -20,10 +20,10 @@ import java.util.List;
  * @date 2022/3/11 17:57:00
  */
 @Slf4j
-public class ZkServiceDiscovery implements ServiceDiscovery {
+public class ZkServiceDiscoveryImpl implements ServiceDiscovery {
     private final LoadBalance loadBalance;
 
-    public ZkServiceDiscovery() {
+    public ZkServiceDiscoveryImpl() {
         this.loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("loadBalance");
     }
 
