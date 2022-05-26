@@ -1,11 +1,14 @@
 package github.beeclimb.serialize;
 
+import github.beeclimb.extension.SPI;
+
 /**
  * 序列化接口，所有序列化类都要实现这个接口
  *
  * @author jun
  * @date 2022/3/8 9:34:00
  */
+@SPI
 public interface Serializer {
     /**
      * serialize
