@@ -33,6 +33,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * (5) codec        序列化类型  1B
  * (6) compress     压缩类型   1B
  * (7) requestId    请求Id    4B
+ * (8) body         消息主体   object类型数据
  * </pre>
  *
  * @author jun.ma
@@ -69,6 +70,7 @@ public class RpcMessageEncoder extends MessageToByteEncoder<RpcMessage> {
 
                 // compress the bytes
                 String compressName = CompressTypeEnum.getName(rpcMessage.getCompress());
+                log.info("compress name: [{}]", compressName);
                 Compress compress = ExtensionLoader.getExtensionLoader(Compress.class)
                         .getExtension(compressName);
                 bodyBytes = compress.compress(bodyBytes);
