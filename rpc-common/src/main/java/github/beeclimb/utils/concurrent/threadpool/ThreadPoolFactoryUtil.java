@@ -13,7 +13,7 @@ import java.util.concurrent.*;
  * @date 2022/3/9 15:53:00
  */
 @Slf4j
-public final class ThreadPoolFactoryUtils {
+public final class ThreadPoolFactoryUtil {
     /**
      * 通过 threadNamePrefix 来区分不同线程池（我们可以把相同 threadNamePrefix 的线程池看作是为同一业务场景服务）。
      * key: threadNamePrefix
@@ -21,7 +21,7 @@ public final class ThreadPoolFactoryUtils {
      */
     private static final Map<String, ExecutorService> THREAD_POOLS = new ConcurrentHashMap<>();
 
-    private ThreadPoolFactoryUtils() {
+    private ThreadPoolFactoryUtil() {
     }
 
     public static ExecutorService createCustomThreadPoolIfAbsent(String threadNamePrefix) {

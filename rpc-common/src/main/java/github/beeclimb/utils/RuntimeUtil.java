@@ -6,5 +6,11 @@ package github.beeclimb.utils;
  */
 public class RuntimeUtil {
 
+    /**
+     * @return cpu cores
+     */
+    public static int cpus() {
+        return Runtime.getRuntime().availableProcessors();
+    }
 
 }

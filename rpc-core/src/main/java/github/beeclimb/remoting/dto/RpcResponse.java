@@ -43,10 +43,10 @@ public class RpcResponse<T> implements Serializable {
         return response;
     }
 
-    public static <T> RpcResponse<T> fail() {
+    public static <T> RpcResponse<T> fail(RpcResponseCodeEnum rpcResponseCodeEnum) {
         RpcResponse<T> rpcResponse = new RpcResponse<>();
-        rpcResponse.setCode(RpcResponseCodeEnum.FAIL.getCode());
-        rpcResponse.setMessage(RpcResponseCodeEnum.FAIL.getMessage());
+        rpcResponse.setCode(rpcResponseCodeEnum.getCode());
+        rpcResponse.setMessage(rpcResponseCodeEnum.getMessage());
         return rpcResponse;
     }
 }

@@ -6,7 +6,7 @@ import github.beeclimb.factory.SingletonFactory;
 import github.beeclimb.provider.ServiceProvider;
 import github.beeclimb.provider.impl.ZkServiceProviderImpl;
 import github.beeclimb.remoting.transport.netty.server.NettyRpcServer;
-import github.beeclimb.utils.concurrent.threadpool.ThreadPoolFactoryUtils;
+import github.beeclimb.utils.concurrent.threadpool.ThreadPoolFactoryUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class SocketRpcServer {
 
     public SocketRpcServer() {
         serviceProvider = SingletonFactory.getInstance(ZkServiceProviderImpl.class);
-        threadPool = ThreadPoolFactoryUtils.createCustomThreadPoolIfAbsent("socket-server-rpc-pool");
+        threadPool = ThreadPoolFactoryUtil.createCustomThreadPoolIfAbsent("socket-server-rpc-pool");
     }
 
     public void registerService(RpcServiceConfig rpcServiceConfig) {

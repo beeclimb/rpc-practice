@@ -57,7 +57,7 @@ public class NettyRpcClient implements RpcRequestTransport {
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline p = ch.pipeline();
                         // if no data in send to the server within 15 seconds, a heartbeat request is send
-                        p.addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
+                        p.addLast(new IdleStateHandler(0, 15, 0, TimeUnit.SECONDS));
                         p.addLast(new RpcMessageEncoder());
                         p.addLast(new RpcMessageDecoder());
                         p.addLast(new NettyRpcClientHandler());

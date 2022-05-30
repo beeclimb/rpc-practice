@@ -73,16 +73,16 @@ final class MyRunnable implements Runnable {
 
 class ThreadPoolTest {
     public static void main(String[] args) {
-        ExecutorService executorService = ThreadPoolFactoryUtils.createCustomThreadPoolIfAbsent("Update");
+        ExecutorService executorService = ThreadPoolFactoryUtil.createCustomThreadPoolIfAbsent("Update");
         for (int i = 0; i < 10; ++i) {
             Runnable worker = new MyRunnable("" + i);
             executorService.execute(worker);
         }
-        ThreadPoolFactoryUtils.printThreadPoolStatus((ThreadPoolExecutor) executorService);
+        ThreadPoolFactoryUtil.printThreadPoolStatus((ThreadPoolExecutor) executorService);
     }
 
     @Test
     public void shutdownTest() {
-        ThreadPoolFactoryUtils.shutDownAllThreadPool();
+        ThreadPoolFactoryUtil.shutDownAllThreadPool();
     }
 }
