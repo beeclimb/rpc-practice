@@ -1,11 +1,16 @@
 package github.beeclimb;
 
+import github.beeclimb.config.RpcServiceConfig;
+import github.beeclimb.proxy.RpcClientProxy;
 import github.beeclimb.remoting.dto.RpcRequest;
+import github.beeclimb.remoting.transport.RpcRequestTransport;
 import github.beeclimb.remoting.transport.socket.SocketRpcClient;
+import lombok.SneakyThrows;
 
 import java.util.UUID;
 
 public class SocketClientMain {
+    @SneakyThrows
     public static void main(String[] args) {
         SocketRpcClient socketRpcClient = new SocketRpcClient();
         Sing sing = new Sing();
@@ -21,6 +26,15 @@ public class SocketClientMain {
                 .build();
         Object result = socketRpcClient.sendRpcRequest(rpcRequest);
         System.out.println(result);
+
+
+        Thread.sleep(5000);
+        RpcRequestTransport rpcRequestTransport1 = new SocketRpcClient();
+        RpcServiceConfig rpcServiceConfig1 = new RpcServiceConfig();
+        RpcClientProxy rpcClientProxy = new RpcClientProxy(rpcRequestTransport1, rpcServiceConfig1);
+        SingService singService = rpcClientProxy.getProxy(SingService.class);
+        String result1 = singService.sing(new Sing("mao bu yi ", " la la la"));
+        System.out.println(result1);
 
     }
 }
