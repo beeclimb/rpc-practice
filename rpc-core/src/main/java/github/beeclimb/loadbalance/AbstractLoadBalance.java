@@ -1,6 +1,7 @@
 package github.beeclimb.loadbalance;
 
 import github.beeclimb.remoting.dto.RpcRequest;
+import github.beeclimb.utils.CollectionUtil;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public abstract class AbstractLoadBalance implements LoadBalance {
     @Override
     public String selectServiceAddress(List<String> serviceAddress, RpcRequest rpcRequest) {
-        if (serviceAddress == null || serviceAddress.size() == 0) {
+        if (CollectionUtil.isEmpty(serviceAddress)) {
             return null;
         }
         if (serviceAddress.size() == 1) {
@@ -26,7 +27,7 @@ public abstract class AbstractLoadBalance implements LoadBalance {
      * selecting optimum service address
      *
      * @param serviceAddress Available service address list
-     * @param rpcRequest Requested data entity
+     * @param rpcRequest     Requested data entity
      * @return Optimal service address
      */
     protected abstract String doSelect(List<String> serviceAddress, RpcRequest rpcRequest);
